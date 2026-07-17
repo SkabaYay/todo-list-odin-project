@@ -1,0 +1,52 @@
+:root {
+    --secondary-color: #F4F5F7;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+} 
+
+body {
+    display: flex;
+    flex-direction: row;
+    font-family: 'Roboto', 'Courier New', Courier, monospace;
+}
+
+.project {
+    height: 100vh;
+    flex: 1;
+    background-color: var(--secondary-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.todo {
+    height: 100vh;
+    flex: 3.5;
+    background-color: white;
+    padding: 15px;
+}
+
+.todo .top #create {
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.todo .top #create:hover {
+    opacity: 80%;
+}
+
+.create-box {
+    height: 500px;
+    width: 500px;
+    background-color: var(--secondary-color);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
