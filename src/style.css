@@ -19,6 +19,49 @@ body {
     flex: 1;
     background-color: var(--secondary-color);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+}
+
+.project .project-title {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+
+.project .project-title span:nth-child(1) {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.project .project-title span button{
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.project .project-title span button:hover {
+    opacity: 80%;
+}
+
+.project .project-button {
+    border: none;
+    border-radius: 10px;
+    width: 400px;
+    height: 50px;
+    background-color: var(--secondary-color);
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px;
+    margin-top: 8px;
+}
+
+.project .project-button:hover {
+    background-color: white;
 }
 
 .todo {
@@ -98,4 +141,51 @@ body {
 .create-box .create-form .buttons input[type="submit"]:hover,
 .create-box .create-form .buttons input[type="reset"]:hover {
     opacity: 80%;
+}
+
+.container {
+    background-color: var(--secondary-color);
+    width: 1300px;
+    height: 190px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.container .left-one {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.container .left-one .left-one-top {
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.container .left-one .left-one-bottom p:nth-child(1) {
+    font-size: 1.2rem;
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+
+.container .left-one .left-one-bottom p:nth-child(2),
+.container .left-one .left-one-bottom p:nth-child(3) {
+    font-size: 0.8rem;
+}
+
+.container .right-one {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+}
+
+.container .right-one .right-one-left input{
+    height: 50px;
+    width: 50px;
 }
