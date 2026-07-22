@@ -1,21 +1,37 @@
-import { display } from "./display.js";
-import { TodoManager } from "./TodoManager.js";
-
 const ProjectManager = (function() {
+    let projects = []
+
     class Project {
-        constructor(name, todos) {
+        constructor(name) {
             this.name = name
-            this.todos = todos
+            this.todos = []
         }
     }
 
-    const addProject = (name, todos) => {
-        let project = new Project(name, todos)
+    const addProject = (name) => {
+        let project = new Project(name)
+        projects.push(project)
         return project
     }
 
-    return {
+    const updateProject = (name, todos) => {
+        for (let i = 0; i < projects.length; i++) {
+            if (projects[i].name === name) {
+                console.log("found")
+                projects[i].todos = todos
+                return
+            }
+        }   
+    }
 
+    const getProjects = () => {
+        return projects
+    }
+
+    return {
+        addProject,
+        getProjects,
+        updateProject
     }
 })()
 

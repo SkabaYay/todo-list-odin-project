@@ -1,4 +1,5 @@
 import { format, parseISO } from 'date-fns'
+import { ProjectManager } from './ProjectManager.js';
 
 const display = (function(){
     const body = document.querySelector("body");
@@ -115,6 +116,8 @@ const display = (function(){
                 let buttonName = tempInput.value
                 project.removeChild(tempInput)
                 project.appendChild(createButtonTwo("project-button", buttonName))
+                ProjectManager.addProject(buttonName)
+                console.log(ProjectManager.getProjects())
             }
         })
     }
