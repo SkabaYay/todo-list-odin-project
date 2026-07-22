@@ -14,14 +14,17 @@ const ProjectManager = (function() {
         return project
     }
 
-    const updateProject = (name, todos) => {
-        for (let i = 0; i < projects.length; i++) {
+    const findProject = (name) => {
+        for (let i=0; i<projects.length; i++) {
             if (projects[i].name === name) {
-                console.log("found")
-                projects[i].todos = todos
-                return
+                return projects[i]
             }
-        }   
+        }
+    }
+
+    const updateProject = (name, todos) => { 
+        const projectFound = findProject(name)
+        projectFound.todos = todos
     }
 
     const getProjects = () => {
@@ -31,7 +34,8 @@ const ProjectManager = (function() {
     return {
         addProject,
         getProjects,
-        updateProject
+        updateProject,
+        findProject
     }
 })()
 

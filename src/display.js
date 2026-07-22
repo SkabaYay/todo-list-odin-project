@@ -139,17 +139,44 @@ const display = (function(){
         const priority = bottomTwo.appendChild(createPara("Priority: " + data.priority))
 
         const leftTwo = rightOne.appendChild(createDiv("right-one-left"))
-        leftTwo.appendChild(createInput("checkbox", "complete", "complete"))
+        const checkbox = createInput("checkbox", "complete", "complete")
+        checkbox.checked = data.checked
+        checkbox.addEventListener("change", () => {
+            data.checked = checkbox.checked
+        })
+        leftTwo.appendChild(checkbox)
 
         const rightTwo = rightOne.appendChild(createDiv("right-one-right"))
         rightTwo.appendChild(createIcon("fa-solid", "fa-delete-left"))
     }
 
+    const deleteDisplayTodos = () => {
+        const container = document.querySelectorAll(".container")
+        for (let i=0; i<container.length; i++) {
+            bottom.removeChild(container[i])
+        }
+    }
+
+    const deleteDisplayTodo = (container, name) => {
+        bottom.removeChild(container)
+    }
+
+    const updateDisplayTodos = (name) => {
+        const project = ProjectManager.findProject(name)
+        const todos = project.todos
+
+        for (let i = 0; i < todos.length; i++) {
+            displayTodo(todos[i])
+        }
+    }
 
     return {
         createTodo,
         displayTodo,
-        createProject
+        createProject,
+        deleteDisplayTodos,
+        deleteDisplayTodo,
+        updateDisplayTodos
     }
 })()
 
