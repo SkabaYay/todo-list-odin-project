@@ -101,6 +101,13 @@ const display = (function(){
         return form
     }
 
+    const displayProject = (name) => {
+        const projectButton = createButtonTwo("project-button", name)
+        projectButton.appendChild(createIcon("fa-solid", "fa-delete-left"))
+        project.appendChild(projectButton)
+        return projectButton
+    }
+
     const createProject = () => {
         const tempInput = createInput("text", "button-name", "button-name")
         tempInput.style.border = "none"
@@ -115,34 +122,45 @@ const display = (function(){
             if (event.key === "Enter") {
                 let buttonName = tempInput.value
                 project.removeChild(tempInput)
-                project.appendChild(createButtonTwo("project-button", buttonName))
+
                 ProjectManager.addProject(buttonName)
-                console.log(ProjectManager.getProjects())
+                const projectButton = displayProject(buttonName)
+                projectButton.click()
             }
         })
     }
 
+    const deleteDisplayProject = (button) => {
+        const projectName = button.textContent.trim()
+
+        if (projectName) {
+            ProjectManager.deleteProject(projectName)
+        }
+
+        project.removeChild(button)
+    }
+
     const displayTodo = (data) => {
         const dateParse = parseISO(data.date)
-        
+
         const container = bottom.appendChild(createDiv("container"))
 
         const leftOne = container.appendChild(createDiv("left-one"))
-        const rightOne = container.appendChild(createDiv("right-one")
-    )
+        const rightOne = container.appendChild(createDiv("right-one"))
         const topTwo = leftOne.appendChild(createDiv("left-one-top"))
         topTwo.textContent = data.title
 
         const bottomTwo = leftOne.appendChild(createDiv("left-one-bottom"))
-        const description = bottomTwo.appendChild(createPara(data.description))
-        const date = bottomTwo.appendChild(createPara(format(dateParse, "dd/MM/yyyy")))
-        const priority = bottomTwo.appendChild(createPara("Priority: " + data.priority))
+        bottomTwo.appendChild(createPara(data.description))
+        bottomTwo.appendChild(createPara(format(dateParse, "dd/MM/yyyy")))
+        bottomTwo.appendChild(createPara("Priority: " + data.priority))
 
         const leftTwo = rightOne.appendChild(createDiv("right-one-left"))
         const checkbox = createInput("checkbox", "complete", "complete")
         checkbox.checked = data.checked
         checkbox.addEventListener("change", () => {
             data.checked = checkbox.checked
+            ProjectManager.saveProjects()
         })
         leftTwo.appendChild(checkbox)
 
@@ -151,29 +169,33 @@ const display = (function(){
     }
 
     const deleteDisplayTodos = () => {
-        const container = document.querySelectorAll(".container")
-        for (let i=0; i<container.length; i++) {
-            bottom.removeChild(container[i])
-        }
+        const containers = document.querySelectorAll(".container")
+        containers.forEach((container) => {
+            bottom.removeChild(container)
+        })
     }
 
-    const deleteDisplayTodo = (container, name) => {
+    const deleteDisplayTodo = (container) => {
         bottom.removeChild(container)
     }
 
     const updateDisplayTodos = (name) => {
-        const project = ProjectManager.findProject(name)
-        const todos = project.todos
+        deleteDisplayTodos()
 
-        for (let i = 0; i < todos.length; i++) {
-            displayTodo(todos[i])
-        }
+        const selectedProject = ProjectManager.findProject(name)
+        if (!selectedProject) return
+
+        selectedProject.todos.forEach((todo) => {
+            displayTodo(todo)
+        })
     }
 
     return {
         createTodo,
         displayTodo,
         createProject,
+        displayProject,
+        deleteDisplayProject,
         deleteDisplayTodos,
         deleteDisplayTodo,
         updateDisplayTodos

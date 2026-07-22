@@ -25,15 +25,15 @@ const TodoManager = (function() {
     
     const updateTodos = (name) => {
         const project = ProjectManager.findProject(name)
-        console.log(project.todos)
+        if (!project) return
         todos = project.todos
     }
 
     const deleteTodo = (todoName) => {
         for (let i=0; i<todos.length; i++) {
             if (todos[i].title === todoName) {
-                console.log("deleted " + todos[i])
-                todos.pop(todos[i])
+                console.log("deleted " + todos[i].title)
+                todos.splice(i, 1)
                 return
             }
         }

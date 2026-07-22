@@ -54,10 +54,14 @@ body {
     background-color: var(--secondary-color);
     font-size: 1.1rem;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     padding: 5px;
     margin-top: 8px;
+}
+
+.project .project-button i {
+    width: 20px;
 }
 
 .project .project-button:hover {

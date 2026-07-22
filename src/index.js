@@ -9,7 +9,9 @@ const body = document.querySelector("body")
 let currentProject
 let lastProject
 
-console.log(ProjectManager.getProjects())
+ProjectManager.getProjects().forEach((savedProject) => {
+    display.displayProject(savedProject.name)
+})
 
 createButton.addEventListener("click", () => {
     const form = display.createTodo()
@@ -46,18 +48,19 @@ project.addEventListener("click", (event) => {
         event.target.style.backgroundColor = "white"
 
         currentProject = name.textContent
-        console.log(currentProject)
-        
-        if (lastProject != undefined) {
-            if (lastProject.textContent != currentProject) {
+
+        if (lastProject === undefined || lastProject.textContent !== currentProject) {
+            if (lastProject !== undefined) {
                 lastProject.style.backgroundColor = "#F4F5F7"
-                display.deleteDisplayTodos()
-                display.updateDisplayTodos(currentProject)
             }
+            display.updateDisplayTodos(currentProject)
         }
         lastProject = event.target
         TodoManager.updateTodos(currentProject)
-    }
+    } 
+
+    if (!event.target.matches(".fa-delete-left")) return;
+    display.deleteDisplayProject(event.target.parentElement)
 })
 
 const bottom = document.querySelector(".bottom");
@@ -66,6 +69,7 @@ bottom.addEventListener("click", (event) => {
 
     const container = event.target.closest(".container");
     const todoName = container.querySelector(".left-one-top").textContent;
-    display.deleteDisplayTodo(container, currentProject)
+    display.deleteDisplayTodo(container)
     TodoManager.deleteTodo(todoName)
+    ProjectManager.saveProjects()
 });
